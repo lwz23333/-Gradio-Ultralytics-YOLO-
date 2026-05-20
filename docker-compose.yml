@@ -1,0 +1,26 @@
+services:
+  yolo-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bysj-yolo-web
+    restart: unless-stopped
+    ports:
+      - "${BYSJ_PORT:-7860}:7860"
+    environment:
+      BYSJ_HOST: "0.0.0.0"
+      BYSJ_PORT: "7860"
+      BYSJ_DEVICE: "cpu"
+      BYSJ_MODEL: "/app/models/yolo26n.onnx"
+      BYSJ_ONNX_IMGSZ: "416"
+      BYSJ_DEFAULT_CONF: "0.25"
+      BYSJ_DEFAULT_IOU: "0.70"
+      BYSJ_DEFAULT_MAX_DET: "100"
+      OMP_NUM_THREADS: "2"
+      OPENBLAS_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+      NUMEXPR_NUM_THREADS: "2"
+      KMP_DUPLICATE_LIB_OK: "TRUE"
+    volumes:
+      - ./yolo26n.onnx:/app/models/yolo26n.onnx:ro
+      - ./outputs:/app/outputs
