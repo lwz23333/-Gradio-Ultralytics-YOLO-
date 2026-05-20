@@ -27,14 +27,14 @@ start_project.ps1    Windows 一键启动脚本
 
 ## 模型文件说明
 
-模型文件 `yolo26n.onnx` 体积较大，默认不提交到 Git。
+仓库已包含默认模型文件 `yolo26n.onnx`，克隆后可以直接使用默认模型运行。
 
-没有 `yolo26n.onnx` 时，项目代码可以下载和启动，但不能完成实际推理。点击图片、视频、摄像头或 URL 识别时，程序会因为找不到模型文件而失败。
+如果删除或没有下载到 `yolo26n.onnx`，项目代码可以启动，但不能完成实际推理。点击图片、视频、摄像头或 URL 识别时，程序会因为找不到模型文件而失败。
 
-运行前二选一：
+如需替换为其他模型，可以二选一：
 
 ```text
-方案一：把 yolo26n.onnx 放到项目根目录
+方案一：把新的 yolo26n.onnx 放到项目根目录并覆盖原文件
 方案二：通过 BYSJ_MODEL 指定 yolo26n.onnx 的实际路径
 ```
 
@@ -45,7 +45,7 @@ git clone https://github.com/lwz23333/-Gradio-Ultralytics-YOLO-.git
 cd .\-Gradio-Ultralytics-YOLO-
 python -m pip install -r requirements.txt
 
-# 如果 yolo26n.onnx 不在项目根目录，请取消下一行注释并改成你的模型路径
+# 如果要使用其他位置的模型，请取消下一行注释并改成你的模型路径
 # $env:BYSJ_MODEL = "D:\models\yolo26n.onnx"
 
 $env:BYSJ_HOST = "127.0.0.1"
