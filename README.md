@@ -25,18 +25,34 @@ start_project.ps1    Windows 一键启动脚本
 一键启动项目.bat      Windows 双击启动入口
 ```
 
-模型文件 `yolo26n.onnx` 体积较大，默认不提交到 Git。运行前请把模型放到项目根目录，或通过环境变量 `BYSJ_MODEL` 指定模型路径。
+## 模型文件说明
+
+模型文件 `yolo26n.onnx` 体积较大，默认不提交到 Git。
+
+没有 `yolo26n.onnx` 时，项目代码可以下载和启动，但不能完成实际推理。点击图片、视频、摄像头或 URL 识别时，程序会因为找不到模型文件而失败。
+
+运行前二选一：
+
+```text
+方案一：把 yolo26n.onnx 放到项目根目录
+方案二：通过 BYSJ_MODEL 指定 yolo26n.onnx 的实际路径
+```
 
 ## Windows 本地运行
 
 ```powershell
-cd D:\bysj
-D:\python\python.exe -m pip install -r requirements.txt
+git clone https://github.com/lwz23333/-Gradio-Ultralytics-YOLO-.git
+cd .\-Gradio-Ultralytics-YOLO-
+python -m pip install -r requirements.txt
+
+# 如果 yolo26n.onnx 不在项目根目录，请取消下一行注释并改成你的模型路径
+# $env:BYSJ_MODEL = "D:\models\yolo26n.onnx"
+
 $env:BYSJ_HOST = "127.0.0.1"
 $env:BYSJ_PORT = "7860"
 $env:NO_PROXY = "localhost,127.0.0.1"
 $env:no_proxy = "localhost,127.0.0.1"
-D:\python\python.exe app_server.py
+python app_server.py
 ```
 
 浏览器打开：
@@ -49,7 +65,7 @@ http://127.0.0.1:7860
 
 ## Docker 部署
 
-把 `yolo26n.onnx` 放到项目根目录后执行：
+先把 `yolo26n.onnx` 放到项目根目录，再执行：
 
 ```bash
 docker compose up -d --build
